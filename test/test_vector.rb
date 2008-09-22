@@ -103,4 +103,12 @@ class TestVector < Test::Unit::TestCase
     assert(@zero.magnitude == 0.0, "Vector should have length of zero. But has #{@zero.magnitude}.")
   end
 
+  def test_angle2D
+    assert(@x1.angle2D == 0, "Failure message.")
+    assert(@y1.angle2D == Math::PI/2.0, "Failure message.")
+    assert((@y1 + @x1).angle2D == Math::PI/4.0, "Failure message.")
+
+
+  end
+
 end

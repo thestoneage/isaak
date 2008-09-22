@@ -99,8 +99,8 @@ class Vector
   end
 
   def angle(vector)
-    dot = dot(vector);
-    Math.acos(dot / (self.magnitude * vector.magnitude))
+    d = dot(vector);
+    Math.acos(d / (self.magnitude * vector.magnitude))
   end
 
   def angle2D
@@ -112,8 +112,9 @@ class Vector
       currentTheta = angle2D
       mag = magnitude
       currentTheta += theta;
-      x = mag * Math.cos(currentTheta)
-      y = mag * Math.sin(currentTheta)
+      @x = mag * Math.cos(currentTheta)
+      @y = mag * Math.sin(currentTheta)
+      return self
     end
 
 end
