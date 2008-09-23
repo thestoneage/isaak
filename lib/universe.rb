@@ -15,11 +15,20 @@ class Universe
       if @border
         bounce(thing)
       end
+      mutual_gravity(thing)
       thing.add_force(@gravity * thing.mass)
       thing.update
     end
   end
-  
+
+  def mutual_gravity(thing)
+    @things.each do |otherthing|
+      if thing != otherthing
+        thing.add_force(otherthing.gravity_force(thing))
+      end
+    end
+  end
+
   def bounce(thing)
     if thing.loc.x < 0 + thing.radius
       thing.loc.x = 0 + thing.radius

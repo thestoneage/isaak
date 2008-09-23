@@ -19,7 +19,16 @@ class Thing
   end
 
   def add_force(force_vector)
-    @acc.add(force_vector / mass)
+    @acc.add(force_vector / @mass)
+  end
+
+  def gravity_force(thing)
+    debug(thing)
+    debug(self)
+    vector = @loc - thing.loc
+    distance = vector.magnitude
+    vector.normalize
+    return vector * ((@mass * thing.mass) / distance**2)
   end
 
 end
