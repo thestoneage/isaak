@@ -1,15 +1,14 @@
 class Thing
 
   attr_reader :loc, :vel, :acc, :mass, :elastic, :radius
-  attr_writer :elastic
 
-  def initialize(location, velocity, force, mass)
+  def initialize(location, velocity, force, mass, elastic = 1.0)
     @acc = Vector.new
     @loc = location
     @vel = velocity
     @force = force
     @mass = mass
-    @elastic = 1.0
+    @elastic = elastic
     @radius = 8
   end
 
@@ -21,6 +20,28 @@ class Thing
 
   def add_force(force_vector)
     @acc.add(force_vector / mass)
+  end
+
+end
+
+class FixedThing < Thing
+
+  attr_reader :loc, :vel, :mass, :radius
+
+  def initialize(location, mass)
+    @mass = mass
+    @loc = location
+    @acc = Vector.new
+    @vel = Vector.new
+    @radius = 16
+  end
+
+  def update
+
+  end
+  
+  def add_force(force_vector)
+
   end
 
 end
