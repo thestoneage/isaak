@@ -21,7 +21,7 @@ class Vector
   end
   
   def -@
-    Vector.new(-@x, -@y, -@z)
+    return Vector.new(-@x, -@y, -@z)
   end
 
   def *(scalar)
@@ -33,28 +33,36 @@ class Vector
     Vector.new(@x / scalar, @y / scalar, @z / scalar)
   end
 
-  def add(vector)
+  def cross(vector)
+    x = @y * vector.z - vector.y * @z
+    y = @z * vector.x - vector.z * @x
+    z = @x * vector.y - vector.x * @y
+    Vector.new(x, y, z)
+  end
+
+
+  def add!(vector)
     @x += vector.x
     @y += vector.y
     @z += vector.z
     return self
   end
 
-  def sub(vector)
+  def sub!(vector)
     @x -= vector.x
     @y -= vector.y
     @z -= vector.z
     return self
   end
 
-  def mul(scalar)
+  def mul!(scalar)
     @x *= scalar
     @y *= scalar
     @z *= scalar
     return self
   end
 
-  def div(scalar)
+  def div!(scalar)
     raise(ZeroDivisionError) if scalar == 0
     @x /= scalar
     @y /= scalar
@@ -66,30 +74,28 @@ class Vector
     @x * vector.x + @y * vector.y + @z * vector.z
   end
 
-  def cross(vector)
-    x = @y * vector.z - vector.y * @z;
-    y = @z * vector.x - vector.z * @x;
-    z = @x * vector.y - vector.x * @y;
-    Vector.new(x, y, z)
-  end
-
   def magnitude
     Math.sqrt(@x**2 + @y**2 + @z**2)
   end
 
-  def normalize
-    m = magnitude
+  def normalize!
+    raise(ArgumentError) if self == Vector.new
+    m = self.magnitude
     if (m > 0)
-      div(m)
+      div!(m)
+    end
+    return self
+  end
+
+  def limit!(max)
+    raise(ArgumentError) if self == Vector.new
+    if (self.magnitude() > max)
+        self.normalize!
+        self.mul!(max);
     end
   end
 
-  def limit(max)
-    if (magnitude() > max)
-        normalize
-        mul(max);
-    end
-  end
+#No Tests yet
 
   def dist(vector)
     x = @x - vector.x
@@ -108,13 +114,13 @@ class Vector
     return -angle
   end
 
-   def rotate2D(theta)
-      currentTheta = angle2D
-      mag = magnitude
-      currentTheta += theta;
-      @x = mag * Math.cos(currentTheta)
-      @y = mag * Math.sin(currentTheta)
-      return self
-    end
+  def rotate2D(theta)
+    currentTheta = angle2D
+    mag = magnitude
+    currentTheta += theta;
+    @x = mag * Math.cos(currentTheta)
+    @y = mag * Math.sin(currentTheta)
+    return self
+  end
 
 end
