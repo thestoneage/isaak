@@ -176,7 +176,7 @@ class TestVector < Test::Unit::TestCase
     vector = Vector.new(2, 0, 0)
     assert(vector.limit!(1) == Vector.new(1, 0, 0), "limit!(1) should limit the Vector (2, 0, 0) to (1, 0, 0).")
   end
-  
+
   def test_angle2D
     assert(@x1.angle2D == 0, "Failure message.")
     assert(@y1.angle2D == Math::PI/2.0, "Failure message.")

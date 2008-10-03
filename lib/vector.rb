@@ -19,7 +19,7 @@ class Vector
   def -(vector)
     Vector.new(@x - vector.x, @y - vector.y, @z - vector.z)
   end
-  
+
   def -@
     return Vector.new(-@x, -@y, -@z)
   end
